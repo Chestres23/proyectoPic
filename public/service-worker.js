@@ -76,42 +76,64 @@ self.addEventListener('activate', (event) => {
 // ==========================================
 // EVENTO: FETCH
 // Intercepta todas las peticiones HTTP
-// Implementa estrategia Cache First
+// Implementa estrategia Network First para archivos críticos
+// Cache First para recursos estáticos
 // ==========================================
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((cachedResponse) => {
-        // Si existe en caché, lo devuelve (Cache First)
-        if (cachedResponse) {
-          console.log('📂 Sirviendo desde caché:', event.request.url);
-          return cachedResponse;
-        }
-        
-        // Si no está en caché, hace fetch a la red
-        console.log('🌐 Obteniendo de la red:', event.request.url);
-        return fetch(event.request)
-          .then((response) => {
-            // Verifica que la respuesta sea válida
-            if (!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
-            }
-            
-            // Clona la respuesta (solo se puede usar una vez)
+  const url = new URL(event.request.url);
+  
+  // Archivos críticos: siempre intenta traer de la red primero
+  const criticalFiles = ['index.html', 'main.jsx', 'App.jsx'];
+  const isCritical = criticalFiles.some(file => url.pathname.includes(file));
+  
+  if (isCritical) {
+    // Network First para archivos críticos
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // Si la respuesta es válida, guarda en caché
+          if (response && response.status === 200) {
             const responseToCache = response.clone();
-            
-            // Guarda en caché para futuras peticiones
-            caches.open(CACHE_NAME)
-              .then((cache) => {
-                cache.put(event.request, responseToCache);
-              });
-            
-            return response;
-          })
-          .catch((error) => {
-            console.error('❌ Error en fetch:', error);
-            // Aquí podrías devolver una página offline personalizada
-          });
-      })
-  );
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return response;
+        })
+        .catch(() => {
+          // Si no hay conexión, usa caché
+          return caches.match(event.request);
+        })
+    );
+  } else {
+    // Cache First para recursos estáticos (CSS, iconos, etc.)
+    event.respondWith(
+      caches.match(event.request)
+        .then((cachedResponse) => {
+          if (cachedResponse) {
+            console.log('📂 Sirviendo desde caché:', event.request.url);
+            return cachedResponse;
+          }
+          
+          console.log('🌐 Obteniendo de la red:', event.request.url);
+          return fetch(event.request)
+            .then((response) => {
+              if (!response || response.status !== 200 || response.type !== 'basic') {
+                return response;
+              }
+              
+              const responseToCache = response.clone();
+              caches.open(CACHE_NAME)
+                .then((cache) => {
+                  cache.put(event.request, responseToCache);
+                });
+              
+              return response;
+            })
+            .catch((error) => {
+              console.error('❌ Error en fetch:', error);
+            });
+        })
+    );
+  }
 });
