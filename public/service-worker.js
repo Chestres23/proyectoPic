@@ -5,7 +5,7 @@
 // estrategia Cache First
 // ==========================================
 
-const CACHE_NAME = 'task-manager-v1';
+const CACHE_NAME = 'task-manager-v2';
 
 // Archivos que se cachearán para funcionamiento offline
 const urlsToCache = [
@@ -15,7 +15,7 @@ const urlsToCache = [
   '/src/App.jsx',
   '/src/App.css',
   '/src/index.css',
-  '/src/components/TaskCard.js',
+  '/TaskCard.js',
   '/manifest.json',
   '/icon-192x192.png',
   '/icon-512x512.png',
