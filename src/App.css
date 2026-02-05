@@ -1,0 +1,155 @@
+/* ==========================================
+   TASK MANAGER PWA - ESTILOS GLOBALES
+   ========================================== */
+
+/* Reset y configuración básica */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Contenedor principal */
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Animaciones suaves para las tarjetas */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Estilo para tareas completadas */
+task-card[completed="true"] .card {
+  opacity: 0.85;
+}
+
+/* Botones con efectos hover mejorados */
+.btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Input de tareas */
+input[type="text"].form-control {
+  border: 2px solid #007bff;
+  transition: all 0.3s ease;
+}
+
+input[type="text"].form-control:focus {
+  border-color: #0056b3;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Checkbox personalizado */
+input[type="checkbox"].form-check-input {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"].form-check-input:checked {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+/* Badges animados */
+.badge {
+  transition: all 0.3s ease;
+}
+
+/* Headers */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
+
+/* Espaciado responsivo */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .btn-lg {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Animación de entrada para las tareas */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+task-card {
+  animation: slideIn 0.3s ease;
+  display: block;
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #007bff;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0056b3;
+}
+
+/* Mejora visual de alerts */
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+
+/* Sombras suaves para cards principales */
+.shadow-lg {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+

@@ -1,0 +1,27 @@
+<svg width="192" height="192" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fondo -->
+  <rect width="192" height="192" fill="#007bff" rx="20"/>
+  
+  <!-- Icono de checklist -->
+  <g transform="translate(40, 40)">
+    <!-- Papel/Documento -->
+    <rect x="20" y="10" width="72" height="92" fill="white" rx="4"/>
+    
+    <!-- Checkbox 1 - Completado -->
+    <rect x="30" y="25" width="15" height="15" fill="#28a745" rx="2"/>
+    <path d="M 32 32 L 36 36 L 43 29" stroke="white" stroke-width="2" fill="none"/>
+    <line x1="50" y1="32" x2="80" y2="32" stroke="#333" stroke-width="2"/>
+    
+    <!-- Checkbox 2 - Completado -->
+    <rect x="30" y="50" width="15" height="15" fill="#28a745" rx="2"/>
+    <path d="M 32 57 L 36 61 L 43 54" stroke="white" stroke-width="2" fill="none"/>
+    <line x1="50" y1="57" x2="80" y2="57" stroke="#333" stroke-width="2"/>
+    
+    <!-- Checkbox 3 - Pendiente -->
+    <rect x="30" y="75" width="15" height="15" fill="white" stroke="#ccc" stroke-width="2" rx="2"/>
+    <line x1="50" y1="82" x2="80" y2="82" stroke="#ccc" stroke-width="2"/>
+  </g>
+  
+  <!-- Texto PWA -->
+  <text x="96" y="170" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle">TASKS</text>
+</svg>
